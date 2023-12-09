@@ -1,4 +1,3 @@
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +26,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Custom Apps
-    "polls"
+    "polls.apps.PollsConfig",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -108,9 +108,12 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATIC_FILES_DIRS = BASE_DIR/"static"
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Manually added paths
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
