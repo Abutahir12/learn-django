@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+
+from .models import Dev
 
 from .forms import RegisterUserModel, LoginUser
 
@@ -35,13 +38,21 @@ def login(request):
             username = request.POST.get("username")
             password = request.POST.get("password")
 
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
+            if user := authenticate(request, username=username, password=password):
                 auth.login(request, user)
-            # return redirect("login")
+            return redirect("dashboard")
 
     context = {"form": form}
     return render(request, "polls/login.html", context=context)
+
+
+@login_required(login_url="login")
+def dashboard(request):
+    devs = Dev.objects.all()
+
+    context = {"devs": devs}
+
+    return render(request, "polls/dashboard.html", context=context)
 
 
 def logout(request):

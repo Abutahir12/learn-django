@@ -1,0 +1,8 @@
+{% extends "polls/base.html"%} {% block content %}
+<h1>Welcome to the Dashboard {{user}}</h1>
+
+{% for dev in devs %}
+<h2>{{dev.id}}</h2>
+<h2>{{dev.first_name}}</h2>
+<h2>{{dev.last_name}}</h2>
+{% endfor %} {% endblock content %}
